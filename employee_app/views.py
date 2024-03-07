@@ -60,16 +60,25 @@ from rest_framework.views import APIView
 from .models import Employee, Department, Role
 from .serializers import EmployeeSerializer
 from django.shortcuts import render,redirect
+from .pagination import Pagination
 
 @api_view(['GET'])
 def index(request):
     return render(request, 'index.html')
 
 class EmployeeListView(APIView):
+    pagination_class = Pagination
     def get(self, request):
         employees = Employee.objects.all()
+        paginator = self.pagination_class()
+
+        # Enable when using Paginator
+        # result_page = paginator.paginate_queryset(employees, request) 
+        # serializer = EmployeeSerializer(result_page, many=True)
+
         serializer = EmployeeSerializer(employees, many=True)
         return render(request, 'view_emp.html', {'emps': serializer.data})
+        # return render(request, 'view_emp.html', {'emps': serializer.data, 'paginator': paginator})
 
     def post(self, request):
         serializer = EmployeeSerializer(data=request.data)

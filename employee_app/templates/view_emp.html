@@ -82,6 +82,15 @@
                 {% endfor %}
             </tbody>
         </table>
+        <!-- Pagination links -->
+        <a href="{{paginator.get_next_url}}">Next</a>
+        <a href="{{paginator.get_previous_url}}">Previous</a>
+        <div>
+            <!-- {% if paginator.get_next_url %} -->
+            <!-- {% endif %} -->
+            <!-- {% if paginator.get_previous_url %} -->
+            <!-- {% endif %} -->
+        </div>
     </div>
 </div>
 
